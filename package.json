@@ -18,10 +18,12 @@
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.9",
     "uuid": "^9.0.0",
     "yup": "^0.32.11"
   },
   "scripts": {
-    "dev":"ts-node-dev src/server.ts"
+    "dev": "ts-node-dev src/server.ts",
+    "typeorm": "typeorm-ts-node-commonjs"
   }
 }
