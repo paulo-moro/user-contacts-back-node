@@ -16,7 +16,7 @@ export class User {
     is_adm:boolean
 
     @Column()
-    phone:number;
+    phone:string;
     
     @Column()
     password:string;

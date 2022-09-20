@@ -10,17 +10,22 @@ const updateUserServices = async (userId:string, changes:IUserupdate) => {
 
     const user = await userRepository.findOneBy({id:userId})
 
+    if(!user){
+        throw new AppError(404, "User not found")
+    }
+
     if(changes.password){
         changes.password = bcrypt.hashSync(changes.password, 10)
     }
 
-    await userRepository.update({id:userId}, changes)
+    await userRepository.update(user, changes)
 
     const updatedUser = {...user, ...changes}
 
     const {password, ...returingUser} = updatedUser
 
-    return returingUser  
+    return returingUser
+   
     
 }
 
