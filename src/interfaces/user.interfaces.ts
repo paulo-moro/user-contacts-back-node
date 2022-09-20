@@ -23,15 +23,14 @@ export class IUserLogin {
 }
 
 export class IUserupdate {
-    id?:string;
-
+   
     name?: string;
 
-    email:string;
+    email?:string;
 
     is_adm?:boolean
 
-    phone?:number;
+    phone?:string;
 
     password?:string;
 }

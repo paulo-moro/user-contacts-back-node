@@ -17,5 +17,5 @@ export class Contact {
     owner:User;
 
     @Column()
-    phone:number;
+    phone:string;
 }
