@@ -1,13 +1,16 @@
+import "reflect-metadata"
+import "express-async-errors"
 import express from "express"
-import { errorMiddleware } from "./middlewares/error.middleware"
+import { handleError } from "./middlewares/error.middleware"
 import { appRoutes } from "./router"
 
 const app = express()
 
 app.use(express.json())
 
+
 appRoutes(app)
 
-app.use(errorMiddleware)
+app.use(handleError)
 
 export default app

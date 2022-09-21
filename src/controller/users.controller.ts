@@ -8,10 +8,9 @@ import updateUserServices from "../services/user/updateUser.service"
 
 export const createUserController = async (req:Request, res:Response) => {
 
-   const newUser = await createUserService(req.body)
-
-   return res.status(201).json(newUser)
-    
+    const newUser = await createUserService(req.body)
+    return res.status(201).json(newUser)
+        
 }
 
 export const loginUserController = async (req:Request, res:Response) => {
@@ -21,31 +20,35 @@ export const loginUserController = async (req:Request, res:Response) => {
         throw new AppError(409, "Email and password is required for login")
     }
 
-    const token = loginUserService(req.body)
-
+    const token = await loginUserService(req.body)
+    
     return  res.status(200).json({token}) 
 }
 
 export const profileUserController = async (req:Request, res:Response) => {
-    const {id} = req.params
+    const {userId} = req.params
 
-    const user = await userProfileService(id)
-
-    return user
+    const user = await userProfileService(userId)
+    
+    return res.status(200).json(user)
+      
 }
 
 export const updateUserController = async (req:Request, res:Response) => {
-    const {id} = req.params
+    const {userId} = req.params
 
-    const user = await updateUserServices(id, req.body)
+    const user = await updateUserServices(userId, req.body)
 
     return res.status(200).json(user)
+        
+   
 }
 
 export const deleteUserController =async (req:Request, res:Response) => {
-    const {id} = req.params
+    const {userId} = req.params
+    
+    await deleteUserServices(userId)
 
-    await deleteUserServices(id)
-
-    return res.status(204)
+    return res.status(204).send()
+ 
 }

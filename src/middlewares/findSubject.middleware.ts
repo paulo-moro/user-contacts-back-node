@@ -1,18 +1,21 @@
 import { Request, Response, NextFunction } from "express"
-import { AppDataSource } from "../datasource"
+import { AppDataSource } from "../data-source"
 import { Contact } from "../entities/contact.entity"
 import { User } from "../entities/users.entity"
 import { AppError } from "../errors/appErrors"
 
 const findSubject = async (req:Request, res:Response, next:NextFunction) =>{
-    if(!req.user){
+    const userRepository = AppDataSource.getRepository(User)
+    const loggedUser = await userRepository.findOneBy({id:req.userId})
+    
+    if(!loggedUser){
         throw new AppError(404, "Logged User not found")
     }
+    req.user = loggedUser
     
     if(req.params.userId){
-        const userRepository = AppDataSource.getRepository(User)
-        const user = await userRepository.findOneBy({id:req.params.userId})
-        if(!user){
+        const subjectUser = await userRepository.findOneBy({id:req.params.userId})
+        if(!subjectUser){
             throw new AppError(404, "Subject User not found")
         }
 

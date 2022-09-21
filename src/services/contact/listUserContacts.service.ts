@@ -1,13 +1,11 @@
-import { AppDataSource } from "../../datasource"
+import { AppDataSource } from "../../data-source"
 import { Contact } from "../../entities/contact.entity"
 import { User } from "../../entities/users.entity";
+import { AppError } from "../../errors/appErrors";
 
 const listUserContactsService = async (user:User) =>{
-    const contactRepository = AppDataSource.getRepository(Contact)
-    
-    const userContacts = await contactRepository.find({where:{owner:user}})
 
-    return userContacts
+    return user.contacts
 }
 
 export default listUserContactsService

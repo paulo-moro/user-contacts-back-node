@@ -1,0 +1,11 @@
+import * as express from "express"
+import { User } from "../../entities/users.entity"
+
+declare global {
+  namespace Express {
+    export interface Request {
+      user:User,
+      userId:string
+    }
+  }
+}

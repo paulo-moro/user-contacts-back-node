@@ -10,7 +10,7 @@ export class ICreateUser{
 
     is_adm?:boolean
 
-    phone:number;
+    phone:string;
 
     password:string;
 }
