@@ -1,4 +1,4 @@
-import { AppDataSource } from "../../datasource";
+import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/users.entity";
 import { AppError } from "../../errors/appErrors";
 import { IUserLogin } from "../../interfaces/user.interfaces";
@@ -15,7 +15,7 @@ const loginUserService =async (userData:IUserLogin) => {
     }
 
     const token = jwt.sign({id:account.id}, String(process.env.SECRET_KEY), {expiresIn: "1d"})
-
+    
     return token
     
 }

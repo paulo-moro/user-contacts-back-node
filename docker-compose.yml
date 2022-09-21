@@ -1,0 +1,26 @@
+services:
+  api:
+    container_name: api
+    image: api_express
+    build: .
+    ports:
+      - 8080:8080
+    environment:
+      - DB_USER=paulo
+      - DB_PASSWORD=123
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB=user_contacts
+    depends_on:
+      - db
+  db:
+    container_name: db
+    image: postgres:14.3
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=paulo
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=user_contacts
+    volumes:
+      - ./create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql

@@ -1,4 +1,4 @@
-import { AppDataSource } from "../../datasource"
+import { AppDataSource } from "../../data-source"
 import { User } from "../../entities/users.entity"
 import { AppError } from "../../errors/appErrors"
 import { IUserupdate } from "../../interfaces/user.interfaces"
@@ -17,10 +17,10 @@ const updateUserServices = async (userId:string, changes:IUserupdate) => {
     if(changes.password){
         changes.password = bcrypt.hashSync(changes.password, 10)
     }
-
-    await userRepository.update(user, changes)
-
+    const updateuser = await userRepository.update({id:user.id}, changes)
+   
     const updatedUser = {...user, ...changes}
+    
 
     const {password, ...returingUser} = updatedUser
 

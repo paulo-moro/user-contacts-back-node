@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express"
-import { AppError } from "../errors/appErrors"
 import jwt from "jsonwebtoken"
 import "dotenv/config"
-import { AppDataSource } from "../datasource"
+import { AppDataSource } from "../data-source"
 import { User } from "../entities/users.entity"
+import { AppError } from "../errors/appErrors"
 
 
 const authToken = (req: Request, res: Response, next: NextFunction) => {
@@ -15,14 +15,13 @@ const authToken = (req: Request, res: Response, next: NextFunction) => {
   
     const splitToken = token.split(" ")
   
-    jwt.verify(splitToken[1], process.env.SECRET_KEY as string, async (error: any, decoded: any ) => {
+    jwt.verify(splitToken[1], process.env.SECRET_KEY as string, (error: any, decoded: any ) => {
       if(error){
         throw new AppError(401, "Invalid token")
       }
-      const userRepository = AppDataSource.getRepository(User)
-      const user = await userRepository.findOneBy({id:decoded.id})
+    
+      req.userId = decoded.id
 
-      req.user= user
       next()
   
     })

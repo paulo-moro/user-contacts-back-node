@@ -1,4 +1,4 @@
-import { AppDataSource } from "../../datasource";
+import { AppDataSource } from "../../data-source";
 import { Contact } from "../../entities/contact.entity";
 import { User } from "../../entities/users.entity";
 import { ICreateContact } from "../../interfaces/contact.interfaces";
@@ -7,7 +7,8 @@ import { AppError } from "../../errors/appErrors";
 
 const createContactService = async (user:User , contact:ICreateContact) =>{
     const contactRepository = AppDataSource.getRepository(Contact)
-    const isAlreadyContact = user.contacts.find(contact=>contact.email === contact.email)
+
+    const isAlreadyContact = user.contacts.find(person=>person.email === contact.email)
 
     if(isAlreadyContact){
         throw new AppError(400, "User already have this contact")
