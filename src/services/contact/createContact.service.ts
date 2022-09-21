@@ -11,7 +11,11 @@ const createContactService = async (user:User , contact:ICreateContact) =>{
     const isAlreadyContact = user.contacts.find(person=>person.email === contact.email)
 
     if(isAlreadyContact){
-        throw new AppError(400, "User already have this contact")
+        throw new AppError(409, "User already have this contact")
+    }
+
+    if(!contact.name || !contact.email || !contact.phone){
+        throw new AppError(412, "Contact need a name, email and phone to be created.")
     }
 
     const newContact = new Contact()
