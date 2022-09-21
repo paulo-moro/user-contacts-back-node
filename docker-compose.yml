@@ -6,21 +6,30 @@ services:
     ports:
       - 8080:8080
     environment:
-      - DB_USER=paulo
-      - DB_PASSWORD=123
       - DB_HOST=db
-      - DB_PORT=5432
+      - DB_PASSWORD=123
       - DB=user_contacts
+      - DB_USER=paulo
+      - SECRET_KEY=bolodebanana
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app
   db:
     container_name: db
     image: postgres:14.3
     ports:
-      - 5432:5432
+      - 5431:5432
     environment:
       - POSTGRES_USER=paulo
       - POSTGRES_PASSWORD=123
       - POSTGRES_DB=user_contacts
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U paulo -d user_contacts"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
     volumes:
       - ./create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql

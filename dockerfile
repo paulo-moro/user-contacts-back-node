@@ -1,12 +1,6 @@
-FROM node:16
-
-USER root
+FROM node:16.15.1
 
 RUN apt-get update
-
-ENV PORT=8080
-
-EXPOSE 8080
 
 WORKDIR /app
 
@@ -16,4 +10,15 @@ RUN yarn
 
 COPY . .
 
+ENV PORT=8080
+
+EXPOSE 8080
+
 CMD ["yarn", "run", "dev"]
+
+
+
+
+
+
+
