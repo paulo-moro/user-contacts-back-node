@@ -42,10 +42,6 @@ describe("Update user profile",()=>{
         const login =  await request(app).post("/users/login").send(sucessLogin);
         const {token} = login.body 
 
-        const userResponse  = await request(app).get("/users").set("Authorization", `Bearer ${token}`).send()
-
-        const user = userResponse.body
-        
         const response = await request(app).patch(`/users/${userId}`).set("Authorization", `Bearer ${token}`).send(updatedData)
 
         expect(response.status).toBe(200)

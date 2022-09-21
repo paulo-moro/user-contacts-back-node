@@ -13,6 +13,44 @@
     }],
     "paths":{
         "/users":{
+            "get":{
+                "summary":"Perfil do usuário",
+                "description": "Essa rota é responsavel pela recuperação dos dados do usuário",
+                "tags":["user"],
+                "security":[{"bearerAuth":[]}],
+                "responses":{
+                    "404":{
+                        "description":"User not Found",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Error"
+                                }
+                            }
+                        }    
+                    },
+                    "401":{
+                        "description":"Unauthorized",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/Error"
+                                }
+                            }
+                        }    
+                    },
+                    "200":{
+                        "description":"Ok",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref":"#/components/schemas/CreatedUser"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "post":{
                 "summary":"Cadastro de usuário",
                 "description": "Essa rota será responsável por criar um novo usuário",
@@ -117,52 +155,7 @@
             }
         },
         "/users/{userId}":{
-            "get":{
-                "summary":"Perfil do usuário",
-                "description": "Essa rota é responsavel pela recuperação dos dados do usuário",
-                "tags":["user"],
-                "security":[{"bearerAuth":[]}],
-                "parameters":[
-                    {
-                        "name":"userId",
-                        "in":"path",
-                        "description":"Essa rota é responsável por recuperar os dados do perfil do usuário, o usuário logado somente tem acesso ao seu perfil, a não ser admin, que tem acesso a todos os perfis.",
-                        "required":true
-                    }
-                ],
-                "responses":{
-                    "404":{
-                        "description":"User not Found",
-                        "content":{
-                            "application/json":{
-                                "schema":{
-                                    "$ref":"#/components/schemas/Error"
-                                }
-                            }
-                        }    
-                    },
-                    "401":{
-                        "description":"Unauthorized",
-                        "content":{
-                            "application/json":{
-                                "schema":{
-                                    "$ref":"#/components/schemas/Error"
-                                }
-                            }
-                        }    
-                    },
-                    "200":{
-                        "description":"Ok",
-                        "content":{
-                            "application/json":{
-                                "schema":{
-                                    "$ref":"#/components/schemas/CreatedUser"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
+            
             "patch":{
                 "summary":"Atualização de usuário",
                 "description": "Essa rota é responsavel pela atualização parcial dos dados do usuário",

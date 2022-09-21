@@ -11,7 +11,7 @@ export const userRoutes = () => {
 
     routes.post("", createUserController);
     routes.post("/login", loginUserController);
-    routes.get("/:userId", authToken, findSubject, isAccountOwnerOrAdmin,  profileUserController);
+    routes.get("", authToken, findSubject, profileUserController);
     routes.patch("/:userId", authToken, findSubject, isAccountOwnerOrAdmin, updateUserController);
     routes.delete("/:userId", authToken, findSubject, isAccountOwnerOrAdmin, deleteUserController)
 

@@ -26,9 +26,8 @@ export const loginUserController = async (req:Request, res:Response) => {
 }
 
 export const profileUserController = async (req:Request, res:Response) => {
-    const {userId} = req.params
-
-    const user = await userProfileService(userId)
+    
+    const user = await userProfileService(req.user.id)
     
     return res.status(200).json(user)
       

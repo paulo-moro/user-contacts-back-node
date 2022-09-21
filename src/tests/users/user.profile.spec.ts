@@ -21,7 +21,7 @@ const updatedData = {
 describe("Test get user profile",()=>{
     let connection:DataSource
 
-    let userId:string
+
 
     beforeAll( async ()=>{
         await AppDataSource.initialize()
@@ -30,7 +30,7 @@ describe("Test get user profile",()=>{
         
         const createdUserRes = await request(app).post("/users").send(sucessUser);
 
-        userId = createdUserRes.body.id
+    
     })
 
     afterAll( async ()=>{
@@ -42,7 +42,7 @@ describe("Test get user profile",()=>{
         const login =  await request(app).post("/users/login").send(sucessLogin);
         const {token} = login.body 
         
-        const response = await request(app).get(`/users/${userId}`).set("Authorization", `Bearer ${token}`).send()
+        const response = await request(app).get(`/users`).set("Authorization", `Bearer ${token}`).send()
 
         expect(response.status).toBe(200)
         expect(response.body).toEqual(expect.objectContaining({
@@ -60,7 +60,7 @@ describe("Test get user profile",()=>{
     })
     test("Should fail to return the user data without token", async ()=>{       
         
-        const response = await request(app).patch(`/users/${userId}`).send()
+        const response = await request(app).get(`/users`).send()
 
         expect(response.status).toBe(401)
         expect(response.body).toEqual(expect.objectContaining({
