@@ -11,7 +11,7 @@ const loginUserService =async (userData:IUserLogin) => {
     const account = await userRepository.findOne({where:{email:userData.email}})
 
     if(!account || !bcrypt.compareSync(userData.password, account.password)){
-        throw new AppError(404, "Wrong email/password")
+        throw new AppError(400, "Wrong email/password")
     }
 
     const token = jwt.sign({id:account.id}, String(process.env.SECRET_KEY), {expiresIn: "1d"})

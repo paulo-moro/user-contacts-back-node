@@ -12,13 +12,13 @@ const createUserService = async (newUser:ICreateUser) => {
     const users = await userRepository.find();
     
     if(!newUser.name || !newUser.email || !newUser.phone || !newUser.password){
-        throw new AppError(400, "User need a name, email, telefone and password")
+        throw new AppError(412, "User need a name, email, telefone and password")
     }
  
     const emailAlreadyExists = users.find((user)=> user.email === newUser.email);
 
     if(emailAlreadyExists){
-        throw new AppError(409, "User with this email already exist");
+        throw new AppError(400, "User with this email already exist");
     }
 
     const user = new User();
