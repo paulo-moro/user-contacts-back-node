@@ -11,13 +11,12 @@ new DataSource({
     synchronize:true,
 }): new DataSource({
     type:"postgres",
-    host:process.env.DB_HOST,
-    port:5432,
-    username:process.env.POSTGRES_USER,
-    password:process.env.POSTGRES_PWD,
-    database:process.env.POSTGRES_DB,
+    url:process.env.DATABASE_URL,
     synchronize:false,
     logging:false,
+    ssl: process.env.NODE_ENV === "production" ?
+        { rejectUnauthorized: false}
+        : false,
     entities:["src/entities/*.ts"],
     migrations:["src/migrations/*.ts"]
 })
