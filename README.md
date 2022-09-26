@@ -6,13 +6,17 @@ Após clonar o repositório executar os seguintes comandos:
 
 
 ```
-docker-compose up --build
+docker-compose up --build ou yarn dev
 ```
 
 em sequencia executar as migrações dentro do docker:
 
 ```
 docker exec api yarn typeorm migration:run -d src/data-source 
+```
+caso seja executado local
+```
+yarn typeorm migration:run -d src/data-source 
 ```
 
 ## Não esquecer
