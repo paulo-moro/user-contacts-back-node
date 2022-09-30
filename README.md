@@ -3,6 +3,19 @@
 Aplicação criada para gerenciamento de usuarios e lista de contatos.
 Após clonar o repositório executar os seguintes comandos:
 
+preencher o .env:
+```
+## Postgres user
+POSTGRES_USER=
+## Postgres password
+POSTGRES_PWD=
+## Postgres DB
+POSTGRES_DB=
+## SECRET_KEY for jwt
+SECRET_KEY=
+## Running app port
+PORT=
+```
 
 
 ```
